@@ -1,0 +1,1526 @@
+{% load static %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% get_current_language as language_code %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>IEM VLAB</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon"> 
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+</head>
+
+<body>
+    {% if request.user.is_authenticated %}
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        <img src="{% static 'img/logo.png'%}" alt="">
+        <span class="d-none d-lg-block">VLAB</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <!-- <div class="search-bar"> -->
+      <!-- <form class="search-form d-flex align-items-center" method="POST" action="#"> -->
+        <!-- <input type="text" name="query" placeholder="Search" title="Enter search keyword"> -->
+        <!-- <button type="submit" title="Search"><i class="bi bi-search"></i></button> -->
+      <!-- </form> -->
+      </div>
+
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+  
+        
+          <li class="nav-item dropdown pe-3">
+  
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+              <img src="{% static 'img/profile-img.jpg'%}" alt="Profile" class="rounded-circle">
+              <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.username }}</span>
+            </a><!-- End Profile Iamge Icon -->
+  
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+              <li class="dropdown-header">
+                <h6>{{ request.user.username }}</h6>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+  
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}">
+                  <i class="bi bi-person"></i>
+                  <span>My Profile</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+  
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                
+                  <a class="nav-link" href="{% url 'accounts:log_out' %}">
+                  <span>  <i class="bi bi-box-arrow-right"></i>  Sign Out</span>
+              </a>
+                </a>
+              </li>
+  
+            </ul><!-- End Profile Dropdown Items -->
+          </li><!-- End Profile Nav -->
+  
+        </ul>
+      </nav><!-- End Icons Navigation -->
+  
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+
+      <li class="nav-heading">Navigation</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'profile' %}">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'lab1' %}">
+          <i class="bi bi-question-circle"></i>
+          <span>Lab 1</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Compiler Design Lab </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active">Lab 1</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+
+        <div class="col-xl-12">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Aim</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Theory</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Procedure</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Simulation</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                
+<p>The goal of parsing is to check the validity of a source string and to determine its syntactic structure. For an invalid string the parser issues 
+  diagnostic messages reporting the cause and nature of error in the string.
+   For a valid string it builds a parse tree to reflect the sequence of derivations or reductions performed during parsing. </p>
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                    <p class="MsoNormal" style="text-align:justify">
+                      The goal of parsing is to check the validity of a source string and to determine its syntactic structure. For an invalid string the parser issues diagnostic messages reporting the cause and nature of error in the string. For a valid string it builds a parse tree to reflect the sequence of derivations or reductions performed during parsing.
+                    </p>
+        
+                    <h3>ROLE OF PARSER</h3><br>
+                    <div align="middle"><img src="images/roleP.png"></div><br>
+                    <pre>
+                      • Performs Context-free syntax analysis
+                      • Guide Context-sensitive analysis
+                      • Construct an Intermediate Representation
+                      • Produces meaningful error messages
+                    </pre>
+                    <br>
+                    <h3>TOP DOWN PARSER</h3>
+        
+                    <p class="MsoNormal" style="text-align:justify">
+                      Top down parsing according to a grammar G attempts to derive a string matching a source string through a sequence of derivation starting with distinguished symbol of G.
+                    </p>
+                    <br>
+                    <pre>
+                      • A top-down parser starts with the root of the parse tree.
+                      • Perform Derivation by picking production and tries to match the input
+                      • May Require backtracking
+                      • Some grammars are backtrack free (left factored / left recursive eliminated)
+                    </pre><br>
+        
+                    <p class="MsoNormal" style=" text-align:justify">
+                     Let us understand the process of Parsing with the help of  parse tree using English language grammar.
+                    </p>
+        
+                    <br>
+                      <pre>Grammar:
+                        &lt;Sentence&gt;:=&lt;Noun Phrase&gt;&lt;Verb Phrase&gt;
+                        &lt;Noun Phrase&gt;:=&lt;Article&gt;&lt;Noun&gt;
+                        &lt;Verb Phrase&gt;:=&lt;Verb>&lt;Noun Phrase&gt;
+                        &lt;Article&gt;:= a | an | the
+                        &lt;Noun&gt;:=boy | apple
+                        &lt;Verb&gt;:= ate
+                      </pre><br>
+        
+                      <pre>&lt;Sentence&gt;Þ&lt;Noun Phrase&gt;&lt;Verb Phrase&gt;
+                        Þ&lt;Article&gt;&lt;Noun&gt;&lt;Verb Phrase&gt;
+                        Þthe &lt;Noun&gt;&lt;Verb Phrase&gt;
+                        Þthe boy&lt;Verb Phrase&gt;
+                        Þthe boy&lt;Verb&gt;&lt;Noun Phrase&gt;
+                        Þthe boy ate &lt;Noun Phrase&gt;
+                        Þthe boy ate &lt;Article&gt; &lt;Noun&gt;
+                        Þthe boy ate  an &lt;Noun&gt;
+                        Þthe boy ate  an apple
+                      </pre><br>
+        
+                    <p class="MsoNormal" style="text-align:justify">
+                      LL (1) parser is a table driven top down parser for left-to-left parsing. The ‘1’ in LL(1) indicates that the grammar uses a look ahead of one source symbol- that is the prediction to be made is determined by the next source symbol. A major advantage of LL (1) parsing is its amenability to automatic construction by a parser generator.
+                      <br>
+                      Grammar use for LL(1)
+                    </p><br>
+                    <pre>
+                      E = TE’
+                      E’ = +TE’ | ɛ
+                      T = FT’
+                      T’ = *FT’ | ɛ
+                      F = id | (E)
+        
+                      Parser table use for LL(1)
+                    </pre>
+        
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-settings">
+                  <p class="MsoNormal" style="text-align:justify">
+                    The simulator tab would:
+        
+                    <ol style="font-size:130%;">
+                      <li>Accept grammar.</li>
+                      <li>Rewrite input grammar by left recursion elimination.</li>
+                      <li>Generate parser table using first and follow algorithm.</li>
+                      <li>Accept input string.</li>
+                      <li>Animated display of parsing of input string.</li>
+                    </ol>
+                  </p>
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <!-- Change Password Form -->
+                  
+                  <h1>LL(1) Parsing</h1>
+                  <p>Build a <a href='http://en.wikipedia.org/wiki/LL_parser'>parse table</a> for an <a href='http://en.wikipedia.org/wiki/LL_grammar'>LL(1)</a> grammar and use it to find the <a href='http://en.wikipedia.org/wiki/Context-free_grammar#Derivations_and_syntax_trees'>leftmost derivation</a> of a line of code.</p>
+                  
+                  <h2>Brief Explanation</h2>
+                  <p>A grammar is LL(1) if (roughly) you can unambiguously decide which grammar rule to use from 
+                  exactly one token of lookahead. Although LL parsers have some <a href='http://en.wikipedia.org/wiki/Left_recursion'>shortcomings</a>,
+                  they are easier to understand than LR parsers, which have always seemed to me like reaching into your left
+                  pocket with your right hand: it gives you the right result but is quite contorted.</p>
+                  
+                  <p>An LL(1) grammar is well suited to table-based parsing. This page implements all the steps
+                  in constructing and using such a table.</p>
+                  
+                  
+                  <hr />
+                  <h2>Try It Yourself</h2>
+                  
+                  <p>A simple LL(1) grammar is provided, along with a correct line of code. (You can change the grammar; instructions below.)</p>
+                  <ol>
+                      <li class='wideLi'>Click <input type='button' id='dummyFindAll' value='Find All' /> to derive all the required sets and construct the parse table.<br />
+                          Or, click each button sequentially.</li>
+                      <li class='wideLi'>Click <input type='button' id='dummyStart' value='Start' /> to initialize the parser.</li>
+                      <li class='wideLi'>Click <input type='button' id='dummyStep' value='Step' /> repeatedly to parse the source code.</li>
+                  </ol>
+              
+                  <br /><h3>Table Builder</h3>
+                      
+                  <p>
+                  Grammar
+                  <input 
+                      type='button' 
+                      id='example1'
+                      value='Example 1' 
+                      onclick='onExample1()' 
+                  />        
+                  <input 
+                      type='button' 
+                      id='example2'
+                      value='Example 2' 
+                      onclick='onExample2()' 
+                  />        
+          <br />
+                  <textarea id='grammar'>
+          E -> num
+          E -> ( E Op E )
+          Op -> +
+          Op -> *</textarea>
+                  <br />
+                  <input 
+                      type='button' 
+                      id='typeEpsilon'
+                      value='Insert an ε' 
+                      onclick='onTypeEpsilon()' 
+                  />        
+                  <input 
+                      type='button' 
+                      id='findAll'
+                      value='Find All' 
+                      onclick='onFindAll()' 
+                  />        
+                  
+                  <br /><br />Terminals<br />
+                  <div id='terminals'><span class='placeholderText'>Terminals will go here</span></div>
+                  <input 
+                      type='button' 
+                      id='findTerminals'
+                      value='Find Terminals' 
+                      onclick='onFindTerminals()' 
+                  />        
+          
+                  <br /><br />Non-terminals<br />
+                  <div id='nonTerminals'><span class='placeholderText'>Non-terminals will go here</span></div>
+                  <input 
+                      type='button' 
+                      id='findNonTerminals'
+                      value='Find Non-Terminals' 
+                      onclick='onFindNonTerminals()' 
+                  />        
+          
+                  <br /><br />Nullables<br />
+                  <div id='nullables'><span class='placeholderText'>Nullables will go here</span></div>
+                  <input 
+                      type='button' 
+                      id='findNullables'
+                      value='Find Nullables' 
+                      onclick='onFindNullables()' 
+                  />        
+          
+                  <br /><br />FIRST(<span class='nonTermText'>A</span>) = { <span class='tokenText'>t</span> : (<span class='tokenText'>t</span> ≠ <span class='tokenText'>ε</span> & <span class='nonTermText'>A</span> →* <span class='tokenText'>t</span>β) | (<span class='tokenText'>t</span> = <span class='tokenText'>ε</span> & <span class='nonTermText'>A</span> →* <span class='tokenText'>ε</span>) }<br />
+                  <div id='first'><span class='placeholderText'>FIRST set will go here</span></div>
+                  <input 
+                      type='button' 
+                      id='findFirst'
+                      value='Find First' 
+                      onclick='onFindFirst()' 
+                  />        
+          
+                  <br /><br />FOLLOW(<span class='nonTermText'>A</span>) = { <span class='tokenText'>t</span> : (<span class='tokenText'>t</span> ≠ <span class='tokenText'>$</span> & <span class='nonTermText'>S</span> →+ α<span class='nonTermText'>A</span><span class='tokenText'>t</span>β) | (<span class='tokenText'>t</span> = <span class='tokenText'>$</span> & <span class='nonTermText'>S</span> →* α<span class='nonTermText'>A</span>) }<br />
+                  <div id='follow'><span class='placeholderText'>FOLLOW set will go here</span></div>
+                  <input 
+                      type='button' 
+                      id='findFollow'
+                      value='Find Follow' 
+                      onclick='onFindFollow()' 
+                  />        
+                  
+                  <br /><br />Numbered Grammar<br />
+                  <div id='numberedGrammar'><span class='placeholderText'>Numbered grammar will go here</span></div>
+                  <input 
+                      type='button' 
+                      id='findNumberedGrammar'
+                      value='Find Numbered Grammar' 
+                      onclick='onFindNumberedGrammar()' 
+                  />        
+          
+                  <br /><br />Table<br />
+                  <div id='table'><span class='placeholderText'>Table will go here</span></div>
+                  <input 
+                      type='button' 
+                      id='findTable'
+                      value='Find Table' 
+                      onclick='onFindTable()' 
+                  />        
+          
+                  <br /><br /><h3>Parser</h3>
+                  
+                  Source (current <span class='tokenText'>token</span> is <span class='tokenText'>red</span>)<br />
+                  <div id='source' contenteditable>( num * ( num + num ) )</div>
+                  <input 
+                      type='button' 
+                      id='start'
+                      value='Start' 
+                      onclick='onStart()' 
+                  />        
+                  <input 
+                      type='button' 
+                      id='step'
+                      value='Step' 
+                      onclick='onStep()' 
+                  />       
+           
+                  <br /><br />Actions (<span class='tokenText'>token</span> ; <span class='tokenText'>terminal</span>/<span class='nonTermText'>non-terminal</span> stack ; <span class='actionText'>action</span> <span class='tokenText'>token</span>/<span class='ruleNumText'>rule</span>)<br />
+                  <div id='actions' ><span class='placeholderText'>Actions will go here</a></div>
+          
+                  <br />Derivation (<span class='substitutionText'>substitution</span> <span class='ruleNumText'>rule➝</span>)<br />
+                  <div id='derivation'><span class='placeholderText'>Derivation will go here</a></div>
+                  <br />
+               
+                  <br /><hr />
+          
+                <h2>Remarks</h2>
+                
+                <p>Example 1 is the grammar that appears when you (re)load this page. Example 2 is the
+                  left-factored form of the common example grammar</p>
+                  <blockquote class='grammar'>E ➝ T + E | T<br />
+                  T ➝ num | num * num | ( E )</blockquote>
+                  </p>
+                  
+                  <p>You can change the grammar as you see fit. Some requirements:</p>
+                  <ul>
+                      <li>The start production must be the first line.</li>
+                      <li>All terminals must be non-alphabetic <em>or</em> start with a lower-case letter.</li>
+                      <li>All non-terminals must start with an Upper-Case Letter.</li>
+                      <li>The epsilon character <input type='button' id='dummyEpsilon' value='ε' /> represents an empty production.</li>
+                      <li>Every production must have <em>only</em> one right-hand result.<br />
+                          So <span class='borderedText'>&nbsp;<span class='nonTermText'>A</span> ➝ <span class='nonTermText'>B</span> | <span class='tokenText'>c</span>&nbsp;</span> 
+                          must be rendered with two productions
+                          <span class='borderedText'>&nbsp;<span class='nonTermText'>A</span> ➝ <span class='nonTermText'>B</span>&nbsp;</span> and <span class='borderedText'>&nbsp;<span class='nonTermText'>A</span> ➝ <span class='tokenText'>c</span>&nbsp;</span></li>
+                      <li>In the code, all tokens must be separated by whitespace.</li>
+                  </ul>
+          
+                  <br /><hr />
+          
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+   
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.min.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script type="text/javascript">
+    "use strict"
+    
+    window.onload = function() {
+        adjustLength(document.getElementById('grammar'));
+    }
+    
+    function wrapSpan(text, tag) {
+        return '<span class="' + tag + '">' + text + '</span>';
+    }
+
+    function clearFields() {
+        listToInnerHTML (['Terminals will go here'],        'terminals',       'placeholderText');
+        listToInnerHTML (['Non-terminals will go here'],    'nonTerminals',    'placeholderText');
+        listToInnerHTML (['Nullables will go here'],        'nullables',       'placeholderText');
+        listToInnerHTML(['FIRST set will go here'],        'first',           'placeholderText');
+        listToInnerHTML(['FOLLOW set will go here'],       'follow',          'placeholderText');
+        listToInnerHTML(['Numbered grammar will go here'], 'numberedGrammar', 'placeholderText');
+        listToInnerHTML(['Table will go here'],            'table',           'placeholderText');
+        listToInnerHTML(['Actions will go here'],          'actions',         'placeholderText');
+        listToInnerHTML(['Derivation will go here'],       'derivation',      'placeholderText');
+        
+    }
+    
+    //------------------------------------------------------------------
+
+    // User can get into trouble if he or she updates these in haphazard order.
+    // Too many cases to take care of! Next function helps out.
+    function clearGlobals() {
+        gStarted = false;
+        gDone = false;
+        gTerminals = [];
+        gNonTerminals = [];
+        gFirst = {};
+        gFollow = {};
+        gTable = {};
+    }
+
+    function somethingIsNotSet() {
+        return gTerminals.length == 0 || gNonTerminals.length == 0 ||
+                gFirst.length == 0 || gFollow.length == 0 || gTable.length == 0;
+    }
+
+    //------------------------------------------------------------------
+    
+    function adjustLength(elt) {
+        var lineCount = lineCountOf(elt.value);
+        elt.rows = lineCount > 0 ? lineCount : 1;
+    }
+
+    //------------------------------------------------------------------
+
+    function lineCountOf(text) {
+        var matches = text.match(/\n/gi);
+        if (matches == null) {
+            if (text == '') {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 1 + matches.length;
+        }
+    }
+
+    //------------------------------------------------------------------
+
+    function fieldToLines(elementName) {
+        var elt = document.getElementById(elementName);
+        return elt.value.trim().split('\n');
+    }
+
+    //------------------------------------------------------------------
+
+    function linesToField(lines, elementName) {
+        var elt = document.getElementById(elementName);
+        elt.value = lines.join('\n');
+        adjustLength(elt);
+    }
+
+    //------------------------------------------------------------------
+    // Safari retrieves innerHTML with <br> even if we send it in
+    // with <br />. Need to check this with other browsers!!
+
+    function listToInnerHTML(list, elementName, markup) {
+        var newList = list.slice(0);
+        var elt = document.getElementById(elementName);
+        for (var i = 0; i < list.length; i++) {
+            newList[i] = wrapSpan(newList[i], markup);
+        }
+        elt.innerHTML = newList.join(',');
+    }
+                
+    //------------------------------------------------------------------
+
+    function innerHTMLToLines(elementName) {
+        var elt = document.getElementById(elementName);
+        return elt.innerHTML.split('<br>');
+    }
+
+    //------------------------------------------------------------------
+
+    function linesToInnerHTML(lines, elementName) {
+        var elt = document.getElementById(elementName);
+        elt.innerHTML = lines.join('<br />');
+    }
+
+    //------------------------------------------------------------------
+
+    function hashOfListsToInnerHTML(hol, elementName) {
+        var result = '';
+        for (var key in hol) {
+            result += wrapSpan(key, 'nonTermText') + ' : ';
+            var list = hol[key].slice(0);
+            for (var i = 0; i < list.length; i++) {
+                list[i] = wrapSpan(list[i], 'tokenText');
+            }
+            result += list.join(',');
+            result += '<br />';
+        }
+        
+        var elt = document.getElementById(elementName);
+        elt.innerHTML = result;
+    }
+    
+    //------------------------------------------------------------------
+
+    var padding = ['', ' ', '  ', '   ', '    ', '     ', '      ', '       ', '        ', '         ', '          '];
+
+    function pad(word, width, left) {
+        var l = word.length;
+        var spacesNeeded = width - l;
+        if (spacesNeeded < 0) {
+            spacesNeeded = 0;
+        }
+        if (left == 'left') {
+            return padding[spacesNeeded] + word;
+        } else {        // default case
+            return word + padding[spacesNeeded];
+        }
+    };
+
+    //------------------------------------------------------------------
+    
+    function maxTermLength() {
+        var result = 0;
+        for (var i = 0; i < gTerminals.length; i++) {
+            if (gTerminals[i].length > result) {
+                result = gTerminals[i].length;
+            }
+        }
+        return result;
+    }
+    
+    function maxNonTermLength() {
+        var result = 0;
+        for (var i = 0; i < gNonTerminals.length; i++) {
+            if (gNonTerminals[i].length > result) {
+                result = gNonTerminals[i].length;
+            }
+        }
+        return result;
+    }
+
+    //------------------------------------------------------------------
+
+    function tableToInnerHTML(table, elementName) {                                
+        var result = pad('', maxNonTermLength()); result += ' | ';
+        for (var tNum = 0; tNum < gTerminals.length; tNum++) {
+            if (gTerminals[tNum] == 'ε') {
+                continue;
+            }
+            var paddedTerm = pad(gTerminals[tNum], maxTermLength() + 1);
+            result += wrapSpan(paddedTerm, 'tokenText');
+        }
+        result += '<br />';
+        for (var _ = 0; _ < maxTermLength() + 3; _++) {
+            result += '—';
+        }
+        
+        for (var tNum = 0; tNum < gTerminals.length; tNum++) {
+            if (gTerminals[tNum] == 'ε') {
+                continue;
+            }
+            for (var _ = 0; _ < maxTermLength() + 1; _++) {
+                result += '—';
+            }
+        }
+        result += '<br />';
+        
+        for (var ntNum = 0; ntNum < gNonTerminals.length; ntNum++) {
+            var nt = gNonTerminals[ntNum];
+            var paddedNt = pad(nt, maxNonTermLength());
+            var tableLine = wrapSpan(pad(nt, maxNonTermLength()), 'nonTermText') +  ' | ';
+            for (var tNum = 0; tNum < gTerminals.length; tNum++) {
+                var t = gTerminals[tNum];
+                if (t == 'ε') {
+                    continue;
+                }
+                var tableEntry = pad(table[nt][t].toString(), maxTermLength() + 1);
+                tableLine += wrapSpan(tableEntry, 'ruleNumText');
+            }
+            result += tableLine + '<br />';
+        }
+
+        var elt = document.getElementById(elementName)
+        elt.innerHTML = result;
+    }
+    //------------------------------------------------------------------
+
+    function addElement(mySet, elt) {
+        var elementWasAdded = !(elt in mySet);
+        mySet[elt] = true;
+        return elementWasAdded;
+    }
+
+    //------------------------------------------------------------------
+
+    function arrayUnique(array) {
+        var result = [];
+        for (var i = 0; i < array.length; i++) {
+            if (result.indexOf(array[i]) == -1) {
+                result.push(array[i]);
+            }
+        }
+        return result;
+    }
+   
+    //------------------------------------------------------------------
+
+    function addList(myHash, key, list) {
+        var existingList = myHash[key];
+        if (existingList === undefined) {
+            alert('Could not find key ' + key + ' in addList().')
+            return false;    // So we will terminate.
+        }
+        var joinedArray = existingList.concat(list);
+        var mergedArray = arrayUnique(joinedArray);
+        myHash[key] = mergedArray;
+        var elementWasAdded = mergedArray.length > existingList.length;
+        
+        return elementWasAdded;
+    }
+    
+    //------------------------------------------------------------------
+
+    function firstCharIsLowerCase(word) {
+        return word[0] == word[0].toLowerCase();
+    }
+
+    //------------------------------------------------------------------
+
+    function insertAtCursor(myField, myValue) {
+        //IE support
+        if (document.selection) {
+            myField.focus();
+            sel = document.selection.createRange();
+            sel.text = myValue;
+        }
+        //MOZILLA and others
+        else if (myField.selectionStart || myField.selectionStart == '0') {
+            var startPos = myField.selectionStart;
+            var endPos = myField.selectionEnd;
+            myField.value = myField.value.substring(0, startPos)
+                + myValue
+                + myField.value.substring(endPos, myField.value.length);
+        } else {
+            myField.value += myValue;
+        }
+    }
+
+    //------------------------------------------------------------------
+
+    function removeEpsilon(list) {
+        var result = [];
+        for (var i = 0; i < list.length; i++) {
+            if (list[i] != 'ε') {
+                result.push(list[i]);
+            }
+        }
+        return result;
+    }            
+    
+    //------------------------------------------------------------------
+
+    function onTypeEpsilon() {
+        var grammarElt = document.getElementById('grammar');
+        insertAtCursor(grammarElt, 'ε');
+    }
+    
+    //------------------------------------------------------------------
+
+    function markupWord(eltName, words, wordIndex, markup) {
+        var localWords = words.slice(0);
+        if (wordIndex < words.length) {
+            localWords[wordIndex] = wrapSpan(localWords[wordIndex], markup);
+        }
+        var elt = document.getElementById(eltName);
+        elt.innerHTML = localWords.join(' ');
+    }
+    
+    //------------------------------------------------------------------
+
+    function stripTags(htmlText) {
+        var div = document.createElement('div');
+        div.innerHTML = htmlText;
+        return div.textContent || div.innerText || '';
+    }
+
+    //==================================================================
+
+    function onExample1() {
+        var grammar = ['E -> num','E -> ( E Op E )','Op -> +','Op -> *'];
+        clearFields();
+        clearGlobals();
+        linesToField(grammar, 'grammar');
+        listToInnerHTML(['( num * ( num + num ) )'], 'source');
+    }
+
+
+    function onExample2() {
+        var grammar = [
+            'E -> T Add',
+            'Add -> + E',
+            'Add -> ε',
+            'T -> num Mul',
+            'Mul -> * T',
+            'Mul -> ε',
+            'T -> ( E )'
+        ];
+        clearFields();
+        linesToField(grammar, 'grammar');
+        listToInnerHTML(['num + num * num'], 'source');            
+        clearGlobals();
+    }
+
+    //------------------------------------------------------------------
+
+    var gTerminals = [];
+
+    function onFindTerminals() {
+        var terminals = {};
+        var productions = fieldToLines('grammar');
+        for (var pNum = 0; pNum < productions.length; pNum++) {
+            var words = productions[pNum].split(/\s/);
+            for (var wordNum = 2; wordNum < words.length; wordNum++) {
+                var word = words[wordNum];
+                if (firstCharIsLowerCase(word)) {
+                    terminals[word] = true;
+                }
+            }
+        }
+        terminals['$'] = true;
+        var result = Object.keys(terminals);
+        gTerminals = result;
+
+        listToInnerHTML(result, 'terminals', 'tokenText');
+    }
+
+    //------------------------------------------------------------------
+
+    function isTerminal(symbol) {
+        var index = gTerminals.indexOf(symbol)
+        if (index != -1) {
+            return true;
+        }
+        if (firstCharIsLowerCase(symbol)) {
+            alert('Symbol ' + symbol + ' starts with lower-case but not a terminal!');
+        }
+        return false;
+    }
+    
+    //------------------------------------------------------------------
+
+    var gNonTerminals = [];
+
+    function onFindNonTerminals() {
+        var nonTerminals = {};
+        var productions = fieldToLines('grammar');
+        for (var pNum = 0; pNum < productions.length; pNum++) {
+            var words = productions[pNum].split(/\s/);
+            if (firstCharIsLowerCase(words[0])) {
+                alert('Symbol ' + words[0] + ' starts with lower-case but is on LHS of production!');
+            }
+            nonTerminals[words[0]] = true;
+        }
+        var result = Object.keys(nonTerminals);
+        gNonTerminals = result;
+        
+        listToInnerHTML(result, 'nonTerminals', 'nonTermText');
+    }
+    
+    //------------------------------------------------------------------
+
+    function isNonTerminal(symbol) {
+        var index = gNonTerminals.indexOf(symbol)
+        if (index != -1) {
+            return true;
+        }
+        if (!firstCharIsLowerCase(symbol)) {
+            alert('Symbol ' + symbol + ' starts with upper-case but is not a non-terminal!');
+        }
+        return false;
+    }
+
+    //------------------------------------------------------------------
+
+    // No gNullables since they are never used.
+
+    function onFindNullables() {
+        var nullables = {};
+
+        var productions = fieldToLines('grammar');
+        var changed = true;
+        while (changed) {
+            changed = false;
+            // Keep iterating over all productions until nothing changes.
+            for (var pNum = 0; pNum < productions.length; pNum++) {
+                var production = productions[pNum];
+                var words = production.split(/\s/);
+                var LHS = words[0];
+                var RHS = words.slice(2, words.length);
+                
+                // Base case.
+                if (RHS.length == 1 && RHS[0] == 'ε') {
+                    var added = addElement(nullables, LHS);
+                    if (added) {
+                        changed = true;
+                    }
+                } else {
+                    // See if all RHS terms are nullable.
+                    var allNullable = true;
+                    for (var wordNum = 0; wordNum < RHS.length; wordNum++) {
+                        var word = RHS[wordNum];
+                        var itsNullable = word in nullables;
+                        if (!itsNullable) {
+                            allNullable = false;
+                            break;
+                        }
+                    }
+                    if (allNullable) {
+                        var added = addElement(nullables, LHS);
+                        if (added) {
+                            changed = true;
+                        }
+                    }                            
+                }
+            }
+        }
+        var result = Object.keys(nullables);
+        if (result.length == 0) {
+            result = ['&nbsp;'];
+        }
+        listToInnerHTML(result, 'nullables', 'nonTermText');
+    }
+
+    //------------------------------------------------------------------
+
+    // We save this rather than parse it back out of the field.
+    var gFirst = {}; // Hash of lists.
+    
+    // Initially, for all nonterminals A, set
+    //     FIRST(A) = {t | A →tω for some ω } 
+    //     
+    // For all nonterminals A where A → ε is a production, 
+    //     add ε to FIRST(A). 
+    //     
+    // Repeat the following until no changes occur:
+    //     * For each production A → α, 
+    //         set FIRST(A) = FIRST(A) ∪ FIRST*(α)
+    
+    function onFindFirst() {
+        gFirst = {};        // Clear out old value.
+        
+        var productions = fieldToLines('grammar');
+
+        // Start out with empty list for non=terminals.
+        for (var i = 0; i < gNonTerminals.length; i++) {
+            gFirst[gNonTerminals[i]] = [];
+        }
+
+        // Initially, for all nonterminals A, set
+        //     FIRST(A) = {t | A →tω for some ω } 
+        for (var pNum = 0; pNum < productions.length; pNum++) {
+            var production = productions[pNum];
+            var words = production.split(/\s/);
+            var A = words[0];
+            var t = words[2];
+            
+            if (isTerminal(t)) {
+                addList(gFirst, A, t);  // Ignore return value;
+            }
+        } 
+                
+        // For all nonterminals A where A → ε is a production, 
+        //     add ε to FIRST(A). 
+        // Previous iteration took care of that already.
+
+        // Repeat the following until no changes occur:
+        //     * For each production A → α, 
+        //         set FIRST(A) = FIRST(A) ∪ FIRST*(α)
+
+        var changed = true;
+        while (changed) {
+            changed = false;
+            for (var pNum = 0; pNum < productions.length; pNum++) {
+                var production = productions[pNum];
+                var words = production.split(/\s/);
+                var A = words[0];
+                var α = words.slice(2, words.length);
+                var added = addList(gFirst, A, firstStar(α));
+                if (added) {
+                    changed = true;
+                }
+            }
+        }
+
+        hashOfListsToInnerHTML(gFirst, 'first');
+    }
+        
+    //------------------------------------------------------------------
+
+    // Define FIRST*(ω) as follows:
+    //     FIRST*(ε) = { ε }
+    //     FIRST*(tω) = { t }
+    //     If ε ∉ FIRST(A):
+    //         FIRST*(Aω) = FIRST(A) 
+    //     Else (if ε ∈ FIRST(A)):
+    //         FIRST*(Aω) = (FIRST(A) - { ε }) ∪ FIRST*(ω)
+
+    function firstStar(list) {
+        if (list.length == 0) {
+            return [ 'ε' ];
+        }
+        var firstItem = list[0];
+        if (isTerminal(firstItem)) {
+            return [ firstItem ];
+        }
+        if (gFirst[firstItem].indexOf('ε') == -1) {
+            return gFirst[firstItem];
+        } else {
+            var firstALessEpsilon = removeEpsilon(gFirst[firstItem]);
+            var rest = list.slice(1);
+            var firstStarRest = firstStar(rest);
+            var combined = firstALessEpsilon.concat(firstStarRest);
+            var result = arrayUnique(combined);
+            return result;
+        }
+    }
+    
+    //------------------------------------------------------------------
+
+    //  Initially, for each nonterminal A, set 
+    //     FOLLOW(A) = { t | B → αAtω is a production }
+    //     
+    // Add $ to FOLLOW(S), where S is the start symbol. 
+    //     
+    // Repeat the following until no changes occur:
+    //     If B → αAω is a production, set
+    //         FOLLOW(A) = FOLLOW(A) ∪ FIRST*(ω) - { ε }.
+    //         
+    //     If B → αAω is a production and ε ∈ FIRST*(ω), set 
+    //         FOLLOW(A) = FOLLOW(A) ∪ FOLLOW(B).
+    
+    // We save this rather than parse it back out of the field.
+    var gFollow = {};
+    
+    function onFindFollow() {
+        var follow = {};   
+        var productions = fieldToLines('grammar');
+        var words = productions[0].split(/\s/);
+        var startSymbol = words[0];     // Better be true!!
+        
+        // Start out with empty lists for all follows.
+        for (var i = 0; i < gNonTerminals.length; i++) {
+            follow[gNonTerminals[i]] = [];
+        }
+        
+        // Initially, for each nonterminal A, set 
+        //     FOLLOW(A) = { t | B → αAtω is a production }
+        for (var i = 0; i < gNonTerminals.length; i++) {
+            var A = gNonTerminals[i];
+            
+            for (var pNum = 0; pNum < productions.length; pNum++) {
+                var production = productions[pNum];
+                var words = production.split(/\s/);
+                var B = words[0];
+                var αAtω = words.slice(2, words.length);
+
+                var indexOfA = αAtω.indexOf(A);
+                if (indexOfA == -1 || indexOfA == αAtω.length - 1) {
+                    break;  // Try next production.
+                }
+                var t = αAtω[indexOfA + 1];
+                
+                if (isTerminal(t)) {
+                    addList(follow, A, [t]); // Ignore return value.
+                }
+            }                        
+        }
+        
+        // Add $ to FOLLOW(S), where S is the start symbol.
+        addList(follow, startSymbol, ['$']);    // Ignore return value.
+        
+        // Repeat the following until no changes occur.
+        var changed = true;
+        while (changed) {
+            changed = false;
+            var added = false;
+            
+            // If B → αAω is a production, set
+            //     FOLLOW(A) = FOLLOW(A) ∪ FIRST*(ω) - { ε }.
+            // Here, ω can not be empty.
+            for (var pNum = 0; pNum < productions.length; pNum++) {
+                var production = productions[pNum];
+                var words = production.split(/\s/);
+                var B = words[0];
+                var αAω = words.slice(2, words.length);
+
+                for (var termNum = 0; termNum < αAω.length - 1; termNum++) {
+                    var A = αAω[termNum];
+                    
+                    if (!isNonTerminal(A)) {
+                        continue;  // A is not a non-terminal.
+                    }
+                    var ω = αAω.slice(termNum+1);
+                            
+                    var firstStarOfω = firstStar(ω);
+                    var firstStarOfωLessEpsilon = removeEpsilon(firstStarOfω);            
+                    added = addList(follow, A, firstStarOfωLessEpsilon);
+                    if (added) {
+                        changed = true;
+                    }
+                    
+                    // If B → αAω is a production and ε ∈ FIRST*(ω), set 
+                    //    FOLLOW(A) = FOLLOW(A) ∪ FOLLOW(B).
+                    //  Here, ω could be empty, because definitely
+                    //    ε ∈ FIRST*(ε). That's covered at *** below.
+                    if (firstStar(ω).indexOf('ε') != -1) {
+                        var followB = follow[B];
+                        added = addList(follow, A, followB);
+                        if (added) {
+                            changed = true;
+                        }
+                    }
+                }
+                // *** Now test where ω is empty.
+                var A = αAω[αAω.length - 1];
+                if (isNonTerminal(A)) {
+                    var followB = follow[B];
+                    added = addList(follow, A, followB);
+                    if (added) {
+                        changed = true;
+                    }
+                }
+            }
+        }
+
+        // Now put hash of lists into textarea.
+        
+        gFollow = follow;
+        hashOfListsToInnerHTML(gFollow, 'follow');                
+    }
+    
+    //------------------------------------------------------------------
+    
+    function onFindNumberedGrammar() {
+        var productions = fieldToLines('grammar');
+        var result = [];
+
+        for (var pNum = 0; pNum < productions.length; pNum++) {
+            var words = productions[pNum].split(/\s/);
+            var newLine = wrapSpan(pNum, 'ruleNumText') + '&nbsp;&nbsp;';
+            newLine += wrapSpan(words[0],'nonTermText');
+            newLine += ' ➝ ';
+            for (var wNum = 2; wNum < words.length; wNum++) {
+                if (isTerminal(words[wNum])) {
+                    newLine += wrapSpan(words[wNum], 'tokenText') + ' ';
+                } else {
+                    newLine += wrapSpan(words[wNum], 'nonTermText') + ' ';
+                }
+            }
+           result.push(newLine);
+        }
+
+        linesToInnerHTML(result, 'numberedGrammar');
+    }
+
+    //------------------------------------------------------------------
+
+    function addToTable(table, nonTerm, term, pNum) {
+        if (table[nonTerm][term] != '.') {
+            alert('Conflict at entry [' + nonTerm + ',' +
+                term + ']: ' + table[nonTerm][term] + ' vs. ' +
+                pNum + '.');
+        } else {
+            table[nonTerm][term] = pNum;
+        }
+    }
+
+    //------------------------------------------------------------------
+   
+    var gTable = {};
+
+    function onFindTable() {
+        var productions  = fieldToLines('grammar');
+        
+        // Start out with blank table.
+        var table = {};
+        for (var ntNum = 0; ntNum < gNonTerminals.length; ntNum++) {
+            var nt = gNonTerminals[ntNum];
+            var tableLine = {};
+            for (var tNum = 0; tNum < gTerminals.length; tNum++) {
+                var t = gTerminals[tNum];
+                tableLine[t] = '.';
+            }
+            table[nt] = tableLine;
+        }
+        
+        for (var pNum = 0; pNum < productions.length; pNum++) {
+            var production = productions[pNum];
+            var words = production.split(/\s/);
+            var LHS = words[0];
+            var RHS = words.slice(2, words.length);
+        
+            var firstStarOfRHS = firstStar(RHS);
+            for (var i = 0; i < firstStarOfRHS.length; i++) {
+                var currentTerm = firstStarOfRHS[i];
+                if (currentTerm == 'ε') {
+                    continue;
+                }
+                addToTable(table, LHS, currentTerm, pNum);
+            }
+            
+            if (firstStarOfRHS.indexOf('ε') != -1) {
+                var followOfLHS = gFollow[LHS];
+                for (var i = 0; i < followOfLHS.length; i++) {
+                    var currentTerm = followOfLHS[i];
+                    addToTable(table, LHS, currentTerm, pNum);
+                }
+            }
+        }
+        
+        gTable = table;
+        tableToInnerHTML(table, 'table');
+    }
+    
+    //------------------------------------------------------------------
+
+    function onFindAll() {
+        onFindTerminals();
+        onFindNonTerminals();
+        onFindNullables();
+        onFindFirst();
+        onFindFollow();
+        onFindNumberedGrammar();
+        onFindTable();
+    }
+
+    //==================================================================
+
+
+    var gStack = [];
+    var gTokenIndex = 0;
+    var gTokens = '';
+    
+    function unwindStack() {
+        var result = '';
+        for (var i = gStack.length - 1; i >= 0; i--) {
+            if (i == gStack.length - 1) {
+                if (isNonTerminal(gStack[i])) {
+                    result += wrapSpan(gStack[i], 'nonTermText');
+                } else {
+                    result += wrapSpan(gStack[i], 'tokenText');
+                }
+            } else {
+                result += gStack[i] ;
+            }
+            result += ' ';
+        }
+        return result;
+    }
+    
+    //------------------------------------------------------------------
+
+    function updateActions(whatWeDid, token) {
+        var actions = innerHTMLToLines('actions');
+        var newAction = '';
+        if (whatWeDid == 'accept') {
+            newAction = ' ; ' + wrapSpan('accept', 'actionText') + ' ' + wrapSpan(token, 'tokenText');
+        } else {
+            newAction = ' ; ' + wrapSpan('apply', 'actionText')  + ' ' + wrapSpan(whatWeDid, 'ruleNumText');
+        }
+        actions[actions.length - 1] += newAction;
+        if (gTokenIndex != gTokens.length) {
+            var newAction = wrapSpan(pad(gTokens[gTokenIndex],maxTermLength(), 'left'), 'tokenText') + ' ; ' + unwindStack();
+            actions.push(newAction);
+        } else {
+            actions.push(pad('', maxTermLength()) + ' ;');
+        }
+        linesToInnerHTML(actions, 'actions');
+    }
+    
+    //------------------------------------------------------------------
+
+    function substitute(sententialForm, ruleNum) {
+        var productions = fieldToLines('grammar');
+        var production = productions[ruleNum];
+        var ruleWords = production.split(/\s/);
+        var LHS = ruleWords[0];
+        var RHS = ruleWords.slice(2, ruleWords.length);
+        if (RHS.length == 1 && RHS[0] == 'ε') {
+            RHS[0] = '';
+        }
+        var sentWords = sententialForm.split(/\s/);
+        for (var i = 0; i < sentWords.length; i++) {
+            if (LHS == sentWords[i]) {
+                break;
+            }
+        }
+        var newForm = '';
+        for (var j = 0; j < sentWords.length; j++) {
+            if (j == i) {
+                newForm += wrapSpan(RHS.join(' '), 'substitutionText') + ' ';
+            } else {
+                newForm += sentWords[j] + ' ';
+            }
+        }
+        return newForm.trim();
+    }
+    
+    //------------------------------------------------------------------
+
+    function updateDerivation(ruleNum) {
+        var derivations = innerHTMLToLines('derivation');
+        var sententialForm = derivations[derivations.length - 1];
+        sententialForm = stripTags(sententialForm);
+        sententialForm.trim();
+        derivations[derivations.length - 1] += '&nbsp;&nbsp;<span class="ruleNumText">' + ruleNum + '➝</span>';
+        var newDeriv = substitute(sententialForm, ruleNum);
+        derivations.push(newDeriv);
+        linesToInnerHTML(derivations, 'derivation');
+    }
+
+    //------------------------------------------------------------------
+    var gStarted = false;
+    var gDone = false;
+    
+    function onStart() {
+        if (somethingIsNotSet()) {
+            alert('You have to find the terminals, FIRST, etc.');
+            return;
+        }
+        var source = document.getElementById('source').innerHTML;
+        source = stripTags(source); // In case it's left over from partial parse.
+
+        gTokens = source.split(/\s/);
+        if (gTokens[gTokens.length - 1] != '$') {
+            gTokens.push('$');
+        }
+        
+        var productions = fieldToLines('grammar');
+        var words = productions[0].split(/\s/);
+        var startSymbol = words[0];     // Better be true!!
+        
+        gStack = ['$', startSymbol];
+        gTokenIndex = 0;
+        markupWord('source', gTokens, gTokenIndex, 'tokenText');
+        
+        var firstAction = wrapSpan(pad(gTokens[0], maxTermLength(), 'left'), 'tokenText') + 
+            ' ; ' + wrapSpan(startSymbol, 'tokenText') + ' $';
+        linesToInnerHTML([firstAction], 'actions');
+        
+        linesToInnerHTML([startSymbol], 'derivation');
+        gStarted = true;
+        gDone = false;
+    }
+                                    
+    //------------------------------------------------------------------
+
+    function onStep() {
+        if (gDone) {
+            return;
+        }
+        if (somethingIsNotSet()) {
+            alert('You have to find the terminals, FIRST, etc.');
+            return;
+        }
+        if (!gStarted) {
+            alert('You have to click ‘Start’ before Stepping.');
+            return;
+        }
+        
+        var stackTop = gStack.pop();
+        var token = gTokens[gTokenIndex];
+        if (isTerminal(stackTop)) {  
+            if (token == stackTop) {
+                gTokenIndex++;
+                markupWord('source', gTokens, gTokenIndex, 'tokenText');
+                updateActions('accept', token);
+            } else {
+                gDone = true;
+                alert ('Syntax error');
+                return;
+            }
+        } else if (isNonTerminal(stackTop)) {
+            var rule = gTable[stackTop][token];
+            if (rule == '.') {
+                gDone = true;
+                alert('Synax error.');
+                return;
+            }
+            updateDerivation(rule);
+            var productions  = fieldToLines('grammar');
+            var production = productions[rule];
+            var words = production.split(/\s/);
+            var RHS = words.slice(2, words.length);
+            
+            for (var i = RHS.length - 1; i >= 0; i--) {
+                gStack.push(RHS[i]);
+            }
+            if (gStack[gStack.length - 1] == 'ε') {
+                var unused = gStack.pop();
+            }
+            updateActions(rule);
+        } else {
+            gDone = true;
+            alert('Syntax error');
+            return;
+        }
+        if (gStack.length == 0) {
+            gDone = true;
+            alert('Successful parse.');
+        }
+    }
+</script>
+
+       
+            {% else %}
+             
+                
+
+                                        <!-- ======= Login starts======= -->
+ <section class="h-full gradient-form bg-gray-200 md:h-screen">
+    <div class="container py-12 px-6 h-full">
+      <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
+        <div class="xl:w-10/12">
+          <div class="block bg-white shadow-lg rounded-lg">
+            <div class="lg:flex lg:flex-wrap g-0">
+              <div class="lg:w-6/12 px-4 md:px-0">
+                <div class="md:p-12 md:mx-6">
+                  <div class="text-center">
+                    <img
+                      class="mx-auto w-48"
+                      src="{% static 'img/logo.png'%}"
+                      alt="logo"
+                    />
+                    <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">IEM Kolkata Virtual Lab</h4>
+                  </div>
+                 
+                  {% bootstrap_messages %}
+
+                  {% block content %}
+        
+                  <p>
+                      <a href="{% url 'accounts:log_in' %}"><button class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                          data-mdb-ripple="true"
+                          data-mdb-ripple-color="light"
+                          style="
+                            background: linear-gradient(
+                              to right,
+                              #ee7724,
+                              #d8363a,
+                              #dd3675,
+                              #b44593
+                            );
+                          "">{% trans 'Log in Again' %}</button></a>
+                  </p>
+              
+                  {% endblock %}
+                </div>
+              </div>
+              <div
+                class="lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none"
+                style="
+                  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+                "
+              >
+                <div class="text-white px-4 py-6 md:p-12 md:mx-6">
+                  <h4 class="text-xl font-semibold mb-6">The Virtual Lab of Institute of Engineering & Management Kolkata </h4>
+                  <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+  <!-- =======Login======= -->
+            
+            {% endif %}
+
+
+<div class="container-fluid mt-3">
+
+   
+
+</div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/chart.js/chart.min.js' %}"></script>
+  <script src="{% static 'vendor/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'vendor/quill/quill.min.js' %}"></script>
+  <script src="{% static 'vendor/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendor/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+
+</body>
+</html>
